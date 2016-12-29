@@ -1,0 +1,29 @@
+Express
+  Start Express with (Terminal):
+    npm install -g express-generator
+    express projectName  --softwareAddon
+    epress toolbar --hogan -c less
+// Commit Test
+        //Not Used
+        // npm init
+
+    Set up dependencies and get current version (Terminal)
+        npm info socket.io version
+        npm info express version
+        npm info bootstrap version
+
+        package.json   (File)
+        "dependencies" : {
+          "express": "4.14.0",
+          "socket.io" : "1.7.2",
+          "bootstrap" : "3.3.7"
+        }
+
+
+
+  Install server refresh
+  npm install
+  npm install packageName --save
+    npm install -g nodemon
+  start
+    nodemon bin/www
