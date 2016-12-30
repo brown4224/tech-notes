@@ -22,8 +22,47 @@ Express
 
 
   Install server refresh
+  //webstarm
   npm install
   npm install packageName --save
     npm install -g nodemon
   start
     nodemon bin/www
+
+
+Fixing Express 4 with Socket.IO
+
+http://stackoverflow.com/questions/24609991/using-socket-io-in-express-4-and-express-generators-bin-www
+
+https://github.com/onedesign/express-socketio-tutorial
+
+
+Using the fist link:
+\http://stackoverflow.com/questions/24609991/using-socket-io-in-express-4-and-express-generators-bin-www
+
+  Install Socket.io
+    npm install --save socket.io
+
+  bin/www
+    var sockIO = app.sockIO;
+    sockIO.listen(server);
+
+  app.js (top of file)
+    var sockIO = require('socket.io')();
+    app.sockIO = sockIO;
+
+  app.js (bottom of file)
+    sockIO.on('connection', function(socket){
+    console.log('A client connection occurred!');
+    });
+
+  index.html
+  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    jQuery(function($){
+      var socket = io.connect();
+    });
+  </script>
