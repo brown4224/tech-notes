@@ -10,13 +10,16 @@ var users = require('./routes/users');
 
 var app = express();
 
-//Socket.io
+// var server = require('http').Server(app);
+// var sockIO = require('socket.io')(server);
+
 var sockIO = require('socket.io')();
 app.sockIO = sockIO;
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hjs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +27,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -47,9 +51,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
-
-
 sockIO.on('connection', function(socket){
     console.log('A client connection occurred!');
+    socket.on('send message', function(data){
+      console.log('Message recieved by server');
+      sockIO.emit('new message', data);
+      // app.sockIO.emit('new message', data);
+      console.log('Message sent by server');
+    });
 });
+module.exports = app;
